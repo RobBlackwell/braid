@@ -6,8 +6,8 @@ messages so that they can be decoupled from specific web servers and
 clients. This allows web applications to be modelled as functions that
 take a request and return a response.
 
-(defun my-handler (request)
-	(make-response :body "Hello World"))
+    (defun my-handler (request)
+    	(make-response :body "Hello World"))
 
 Adapters are used to hook up braid to real web servers - See
 [braid-hunchentoot](https://github.com/RobBlackwell/braid-hunchentoot)
@@ -28,5 +28,5 @@ feedback, but it's probably too early to consider including in
 Quicklisp yet. That doesnt stop you trying it with quicklisp by using
 [local-projects](http://www.quicklisp.org/beta/faq.html).
 
-Rob Blackwell
+Rob Blackwell    
 November 2014
