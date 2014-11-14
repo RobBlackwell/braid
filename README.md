@@ -8,7 +8,7 @@ take a request and return a response.
 
 (defun my-handler (request)
 	(make-response :body "Hello World"))
-	
+
 Adapters are used to hook up braid to real web servers - See
 [braid-hunchentoot](https://github.com/RobBlackwell/braid-hunchentoot)
 for example.
@@ -20,10 +20,13 @@ are modelled as alists.
 This is not a new idea; Clojure Ring, Ruby Rack and Python WSGI all
 have a similar philosophy. Braid is designed for Common Lisp.
 
+This is very much in the style of Clojure Ring, see
+[SPEC](https://github.com/ring-clojure/ring/blob/master/SPEC).
+
 THIS IS EXPERIMENTAL CODE THAT IS SUBJECT TO CHANGE. I welcome
 feedback, but it's probably too early to consider including in
 Quicklisp yet. That doesnt stop you trying it with quicklisp by using
 [local-projects](http://www.quicklisp.org/beta/faq.html).
 
 Rob Blackwell
-January 2014
+November 2014

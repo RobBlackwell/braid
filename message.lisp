@@ -82,6 +82,16 @@
 (defmethod (setf response-status-code) (new-value (request cons))
   (setf (getf request :status-code) new-value))
 
+;;;
+
+(defun ensure-body (body)
+	"A body must either be a string, array or nil."
+	(when body
+		(typecase body
+			(string body)
+			(array body)
+			(t (format nil "~a" body)))))
+
 ;;; Constructors:
 
 (defun make-request (uri &key (method :get) (headers nil) (body nil))
@@ -90,4 +100,4 @@
 
 (defun make-response (&key (status-code +http-ok+) (headers nil) (body nil))
   "Creates a new HTTP response."
-  (list :status-code status-code :headers headers :body body))
+  (list :status-code status-code :headers headers :body (ensure-body body)))
