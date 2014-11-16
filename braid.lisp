@@ -1,4 +1,4 @@
-;;;; message.lisp
+;;;; braid.lisp
 
 (in-package #:braid)
 
@@ -82,22 +82,33 @@
 (defmethod (setf response-status-code) (new-value (request cons))
   (setf (getf request :status-code) new-value))
 
-;;;
-
-(defun ensure-body (body)
-	"A body must either be a string, array or nil."
-	(when body
-		(typecase body
-			(string body)
-			(array body)
-			(t (format nil "~a" body)))))
-
 ;;; Constructors:
 
 (defun make-request (uri &key (method :get) (headers nil) (body nil))
   "Creates a new HTTP request."
   (list :method method :uri uri :headers headers :body body))
 
-(defun make-response (&key (status-code +http-ok+) (headers nil) (body nil))
+(defun make-response (&key (status-code 200) (headers nil) (body nil))
   "Creates a new HTTP response."
-  (list :status-code status-code :headers headers :body (ensure-body body)))
+  (list :status-code status-code :headers headers :body body))
+
+;;;
+
+;; Needs more work
+
+(defun ensure-body (body)
+	"A body must either be a string, array or nil" ;; or perhaps a path or stream?
+	(when body
+		(typecase body
+			(string body)
+			(array body)
+			(t (format nil "~a" body)))))
+
+(defun coerce-response (response)
+	"A handler that turns shorthand responses of STRING or ARRAY into a
+full HTTP response."
+		(typecase response
+			(string (make-response :body response))
+			(array (make-response :body response))
+			(t response)))
+		
