@@ -14,8 +14,7 @@ Adapters are used to hook up braid to real web servers - See
 for example.
 
 The default implementation of request and response objects is as
-plists. This makes them easy to print out, debug and extend. Headers
-are modelled as alists.
+plists. This makes them easy to print out, debug and extend.
 
 This is not a new idea; Clojure Ring, Ruby Rack and Python WSGI all
 have a similar philosophy. Braid is designed for Common Lisp.

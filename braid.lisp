@@ -2,7 +2,7 @@
 
 (in-package #:braid)
 
-;;; Define an interface for working with HTTP messages,
+;;; Define an interface for working with HTTP messages.
 
 (defgeneric message-headers (message) 
   (:documentation "Returns the headers from an HTTP message."))
@@ -20,9 +20,10 @@
   (:documentation "Returns the body from an HTTP message."))
 
 (defgeneric (setf message-body) (new-value message) 
-  (:documentation "Sets the body from an HTTP message."))
+  (:documentation "Sets the body of an HTTP message."))
 
 ;;; and a default implementation based on a plist.
+;;; e.g. (:headers (:content-type "text/plain") :body "Hello world")
 
 (defmethod message-headers ((message cons))
   (getf message :headers))
@@ -31,10 +32,10 @@
   (setf (getf message :headers) new-value))
 
 (defmethod message-header ((message t) header-name)
-  (rest (assoc header-name (message-headers message) :test #'string=)))
+	(getf (message-headers message) header-name))
 
 (defmethod (setf message-header) (header-value (message t) header-name)
-  (setf (getf message :headers) (acons header-name header-value (getf message :headers))))
+	(setf (getf (message-headers message) header-name) header-value))
 
 (defmethod message-body ((message cons))
   (getf message :body))
@@ -56,6 +57,8 @@
 (defgeneric (setf request-uri) (new-value request) 
   (:documentation "Sets the uri of an HTTP request."))
 
+;;; e.g. (:method :get :uri "/" :headers (:accept "text/plain") :body nil)
+
 (defmethod request-method ((request cons))
   (getf request :method))
 
@@ -76,6 +79,8 @@
 (defgeneric (setf response-status-code) (new-value response) 
   (:documentation "Sets the status code of an HTTP response."))
 
+;;; e.g. (:status-code 200 :headers (:content-type "text/plain") :body "Hello world")
+
 (defmethod response-status-code ((response cons))
   (getf response :status-code))
 
@@ -94,7 +99,7 @@
 
 ;;;
 
-;; Needs more work
+;;; Needs more thought...
 
 (defun ensure-body (body)
 	"A body must either be a string, array or nil" ;; or perhaps a path or stream?
