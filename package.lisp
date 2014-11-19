@@ -3,14 +3,13 @@
 (defpackage #:braid
   (:use #:cl)
   (:export
-	 #:message-headers
-	 #:message-header
-	 #:message-body
+	 #:headers
+	 #:header
+	 #:body
 	 #:make-request
 	 #:request-method
-	 #:request-uri
+	 #:uri
 	 #:make-response
-	 #:response-status-code
-	 #:ensure-body
-	 #:coerce-response))
+	 #:status))
+
 
