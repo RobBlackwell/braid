@@ -22,6 +22,9 @@
 (defgeneric (setf body) (new-value message) 
   (:documentation "Sets the body of an HTTP message."))
 
+(defgeneric copy-message (message)
+	(:documentation "Returns a copy of an HTTP message with a copy of the headers."))
+
 ;;; and a default implementation based on a plist.
 ;;; e.g. (:headers (:content-type "text/plain") :body "Hello world")
 
@@ -42,6 +45,9 @@
 
 (defmethod (setf body) (new-value (message cons))
   (setf (getf message :body) new-value))
+
+(defmethod copy-message ((message cons))
+  (copy-tree message))
 
 ;;; HTTP requests extend messages to include a method and a URI.
 
@@ -97,4 +103,24 @@
   "Creates a new HTTP response."
   (list :status status :headers headers :body body))
 
+;;; Common error responses
 
+(defun make-not-found-response (&key (headers nil) (body "Not found"))
+	"Returns a 404 not found response."
+	(braid:make-response :status 404 :headers headers :body body))
+
+(defun make-not-found-handler (&key (headers nil) (body "Not found"))
+	"Returns a handler that always returns a 404 not found response."
+	(lambda (request)
+		(make-not-found-response :headers headers :body body)))
+
+(defun make-internal-server-error-response (&key (headers nil) (body "Internal Server Error"))
+	"Returns a 500 internal server error response."
+	(braid:make-response :status 500 :headers headers :body body))
+
+(defun make-internal-server-error-handler (&key (headers nil) (body "Not found"))
+	"Returns a handler that always returns a 500 internal server error response."
+	(lambda (request)
+		(make-internal-server-error-response :headers headers :body body)))
+
+;;; End
