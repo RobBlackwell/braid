@@ -11,10 +11,6 @@
 	 #:uri
 	 #:make-response
 	 #:status
-	 #:copy-message
-	 #:make-internal-server-error-response
-	 #:make-not-found-response
-	 #:make-internal-server-error-handler
-	 #:make-not-found-handler))
+	 #:copy-message))
 
 
