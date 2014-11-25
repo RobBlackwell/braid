@@ -103,4 +103,32 @@
   "Creates a new HTTP response."
   (list :status status :headers headers :body body))
 
+;;;
+
+(defun ensure-response (response)
+	"Turns a shorthand response such as a string or pathname into a full
+Braid response."
+	(typecase response
+			(string (braid:make-response :body response))
+			((simple-array (unsigned-byte 8)) (braid:make-response :body response))
+			(pathname (braid:make-response :body response))
+			(null (braid:make-response :status 404 :body "Not found"))
+			(cons response)
+			(t (braid:make-response :body (format nil "~a" response)))))
+
+(defun ensure-request (request)
+	"Turns a shorthand request such as a string URI into a full Braid
+request."
+	(typecase request
+		(string (braid:make-request :uri request))
+		(cons request)
+		(t (braid:make-request :uri (format nil "~a" request)))))
+
+(defun load-pathname-body (response)
+	"Replaces a pathname body with a byte vector being
+the contents of the file designated by the pathname. "
+	(when (typep (braid:body response) 'pathname)
+		(setf (braid:body response) (alexandria:read-file-into-byte-vector (braid:body response))))
+	response)
+
 ;;; End
