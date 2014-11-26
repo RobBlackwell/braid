@@ -5,6 +5,7 @@
   :author "Rob Blackwell"
   :description "A trivial abstraction over HTTP request and response messages."
   :serial t
+	:depends-on (#:alexandria)
   :components ((:file "package")
 							 (:file "braid")))
 
