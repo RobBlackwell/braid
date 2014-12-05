@@ -11,10 +11,6 @@
 	 #:uri
 	 #:make-response
 	 #:status
-	 #:copy-message
-	 #:ensure-response
-	 #:ensure-request
-	 #:load-pathname-body
-	 ))
+	 #:copy-message ))
 
 
