@@ -11,35 +11,36 @@ functions that take a request and return a response.
 
 ## Concepts
 
-Requests have a request-method, uri, headers and a body. The default
-implementation is as a plist, which makes them easy to eyeball thus:
+Requests have a method, uri, headers and a body and can be created
+like this:
 
-	> (braid:make-request :uri "http://www.google.co.uk")
-	(:REQUEST-METHOD :GET :URI "http://www.google.co.uk" :HEADERS NIL :BODY NIL)
+	> (make-http-request :uri "http://www.google.co.uk")
+    #<HTTP-REQUEST http://www.google.co.uk/ #x21021E393D>
 
 Accessors are provided for each of the elements.
 
-	> (braid:request-method (braid:make-request :uri "http://www.google.co.uk"))
-	:GET
+    > (http-request-method (make-http-request :uri "http://www.google.co.uk"))
+    :GET
 
 Responses are modelled similarly with status, headers and body.
 
-	> (braid:make-response :body "hello world")
-	(:STATUS 200 :HEADERS NIL :BODY "hello world")
+    > (make-http-response :body "Hello world")
+    #<HTTP-RESPONSE 200 #x21021E727D>
 
-Request handlers are functions that take one argument, a request, and
-return a response (or NIL signifying that they haven't handled the
-request).
+Request handlers are functions that take one argument, an
+http-request, and return an http-response (or NIL signifying that they
+haven't handled the request).
 
-    (defun my-request-handler (request)
-    	(make-response :body "Hello World"))
-
-This simple abstraction can then be extended with the concept of
-[braid-middleware](https://github.com/RobBlackwell/braid-middleware)
+    (defun my-http-request-handler (http-request)
+    	(make-http-response :body "Hello World"))
 
 Adapters are used to hook up braid to real web servers - See
 [braid-hunchentoot](https://github.com/RobBlackwell/braid-hunchentoot)
 for example.
+
+This simple abstraction can then be extended, see
+[braid-util](https://github.com/RobBlackwell/braid-util) and
+[braid-middleware](https://github.com/RobBlackwell/braid-middleware)
 
 Braid can also be used with web clients - See
 [braid-drakma](https://github.com/RobBlackwell/braid-drakma)
@@ -57,4 +58,4 @@ Quicklisp yet. That doesnt stop you trying it with quicklisp by using
 [local-projects](http://www.quicklisp.org/beta/faq.html).
 
 Rob Blackwell    
-November 2014
+December 2014

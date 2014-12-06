@@ -3,14 +3,20 @@
 (defpackage #:braid
   (:use #:cl)
   (:export
-	 #:headers
-	 #:header
-	 #:body
-	 #:make-request
-	 #:request-method
-	 #:uri
-	 #:make-response
-	 #:status
-	 #:copy-message ))
+   #:http-request
+   #:http-response
+   #:http-request-uri
+   #:http-request-method
+   #:http-request-headers
+   #:http-request-header
+   #:http-request-body
+   #:make-http-request
+   #:http-response-status
+   #:http-response-headers
+   #:http-response-header
+   #:http-response-body
+   #:make-http-response))
+
+
 
 
