@@ -6,8 +6,11 @@ Braid provides a trivial abstraction over HTTP request and response
 messages so that they can be decoupled from specific web frameworks,
 servers and clients.
 
-This allows web applications to be modelled as simple request handler
-functions that take a request and return a response.
+Web applications can be modelled as simple request handler functions
+that take an HTTP request and return an HTTP response.
+
+Higher order functions can then be used to compose these handlers to
+provide functionality such as authentication and routing.
 
 ## Concepts
 
@@ -38,19 +41,16 @@ Adapters are used to hook up braid to real web servers - See
 [braid-hunchentoot](https://github.com/RobBlackwell/braid-hunchentoot)
 for example.
 
-This simple abstraction can then be extended, see
-[braid-util](https://github.com/RobBlackwell/braid-util) and
-[braid-middleware](https://github.com/RobBlackwell/braid-middleware)
-
 Braid can also be used with web clients - See
 [braid-drakma](https://github.com/RobBlackwell/braid-drakma)
 
-Functionality can be layered with middleware. E.g. see
-[braid-yason](https://github.com/RobBlackwell/braid-yason) for JSON
-support.
+Braid can be extended, see
+[braid-util](https://github.com/RobBlackwell/braid-util),
+[braid-middleware](https://github.com/RobBlackwell/braid-middleware)
+and [braid-yason](https://github.com/RobBlackwell/braid-yason).
 
 This is not a new idea; Clojure Ring, Ruby Rack and Python WSGI all
-have a similar philosophy. Braid is designed for Common Lisp.
+take a similar approach. Braid is designed for Common Lisp.
 
 THIS IS EXPERIMENTAL CODE THAT IS SUBJECT TO CHANGE. I welcome
 feedback, but it's probably too early to consider including in
