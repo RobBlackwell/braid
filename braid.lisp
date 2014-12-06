@@ -42,7 +42,7 @@
 
 (defmethod print-object ((http-request http-request) stream)
   (print-unreadable-object (http-request stream :type t :identity t)
-	(princ (http-request-uri http-request) stream)))
+    (princ (http-request-uri http-request) stream)))
 
 ;;; Define an interface for working with HTTP responses
 
@@ -76,10 +76,10 @@
   (getf (http-response-headers http-response) header-name))
 
 (defmethod (setf http-response-header) (new-value (http-response http-response) header-name)
-	(setf (getf (http-response-headers http-response) header-name) new-value))
+  (setf (getf (http-response-headers http-response) header-name) new-value))
 
 (defmethod print-object ((http-response http-response) stream)
   (print-unreadable-object (http-response stream :type t :identity t)
-	(princ (http-response-status http-response) stream)))
+    (princ (http-response-status http-response) stream)))
 
 ;;; End
